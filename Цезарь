@@ -1,0 +1,111 @@
+
+direction = input('Зашифровать текст? (да/не) ')
+lang_alph = input('Язык алфавита? (рус/анг) ')
+shift_step = int(input('Шаг сдвига? '))
+
+eng_lower = 'abcdefghijklmnopqrstuvwxyz'
+eng_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+rus_lower = "абвгдежзийклмнопрстуфхцчшщъыьэюя"
+rus_upper = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+
+
+def encryption(lower_alph, upper_alph, step, text):
+    direct_text = ''
+    text = text.split(' ')
+    
+    for even in text:
+        l = len(even)
+        word = ''
+        for c in even:
+            if c in lower_alph:
+                new_symb = lower_alph[(lower_alph.find(c) + l) % len(lower_alph)]
+                word += new_symb
+            elif c in upper_alph:
+                new_symb = upper_alph[(upper_alph.find(c) + l) % len(upper_alph)]
+                word += new_symb
+            else:
+                word += c
+        direct_text += (word + ' ')
+    print(direct_text)
+
+def decryption(lower_alph, upper_alph, step, text):
+    decrypt_text = ''
+    for c in text:
+        if c in lower_alph:
+            new_symb = lower_alph[(lower_alph.find(c) - step) % len(lower_alph)]
+            decrypt_text += new_symb
+        elif c in upper_alph:
+            new_symb = upper_alph[(upper_alph.find(c) - step) % len(upper_alph)]
+            decrypt_text += new_symb
+        else:
+            decrypt_text += c
+
+    print(decrypt_text)
+        
+
+if direction == 'да':
+    if lang_alph == 'рус':
+        text = input('Введите текс который необходимо зашифровать:\n')
+        encryption(rus_lower, rus_upper, shift_step, text)
+    elif lang_alph == 'анг':
+        text = input('Введите текс который необходимо зашифровать:\n')
+        encryption(eng_lower, eng_upper, shift_step, text)
+elif direction == 'не':
+    if lang_alph == 'рус':
+        text = input('Введите текст который необходимо дешифровать:\n')
+        decryption(rus_lower, rus_upper, shift_step, text)
+    elif lang_alph == 'анг':
+        text = input('Введите текст который необходимо дешифровать:\n')
+        decryption(eng_lower, eng_upper, shift_step, text)
+
+
+
+
+
+
+
+
+
+
+# версия шифрования каждого слова на длину слова
+
+text = input()
+eng_lower = 'abcdefghijklmnopqrstuvwxyz'
+eng_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+lens = []
+new_text = ''
+for c in text:
+    if c in eng_lower or c in eng_upper or c == ' ':
+        new_text += c
+new_text = new_text.split(' ')
+
+
+for even in new_text:
+    lens.append(len(even))
+    
+             
+def encryption(lower_alph, upper_alph, text, steps):
+    text = text.split(' ')
+    direct_text = ''
+        
+    for even in text:
+        l = steps[text.index(even)]
+        word = ''
+        for c in even:
+            if c in lower_alph:
+                new_symb = lower_alph[(lower_alph.find(c) + l) % len(lower_alph)]
+                word += new_symb
+            elif c in upper_alph:
+                new_symb = upper_alph[(upper_alph.find(c) + l) % len(upper_alph)]
+                word += new_symb
+            else:
+                word += c
+        direct_text += (word + ' ')
+    
+             
+                
+                
+                
+    print(direct_text)
+
+encryption(eng_lower, eng_upper, text, lens)
