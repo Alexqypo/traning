@@ -1,0 +1,41 @@
+import random
+
+digits = '23456789'
+lowercase_letters = 'abcdefghjkmnpqrstuvwxyz'
+uppercase_letters = 'ABCDEFGHIJKMNPQRSTUVWXYZ'
+punctuation = '!#$%&*+-=?@^_'
+chars_exclude = 'il1Lo0O'
+
+chars = ''
+
+
+number_pass = int(input('Сколько паролей создать?  '))
+len_pass = int(input('Какая длина у паролей?  '))
+
+print('Отвечай на вопросы Да или Нет.')
+digit_pass = input('Добавить цифра?  ')
+lower_pass = input('Добавить строчные буквы?  ')
+upper_pass = input('Добавить пропистые буквы?  ')
+punc_pass = input('Добавить символы?  ')
+symb_exclude = input('Исключить символы il1Lo0O?  ')
+
+def generate_password(lenght, chars):
+    pass_word = random.sample(chars, lenght)
+    return ('').join(pass_word)
+
+if digit_pass == 'Да':
+    chars += digits
+if lower_pass == 'Да':
+    chars += lowercase_letters
+if upper_pass == 'Да':
+    chars += uppercase_letters
+if punc_pass == 'Да':
+    chars += punctuation
+if symb_exclude == 'Нет':
+    chars += chars_exclude
+
+
+
+
+for i in range(number_pass):
+    print(generate_password(len_pass, chars))
