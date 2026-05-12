@@ -1,0 +1,131 @@
+import random
+words_list = ["человек", "слово", "лицо", "дверь", "земля", "работа", "ребенок", "история", "женщина", "развитие", "власть", "правительство", "начальник", "спектакль", "автомобиль", "экономика", "литература", "граница", "магазин", "председатель", "сотрудник", "республика", "личность"]
+
+def get_word(list_1):
+    return random.choice(list_1)
+
+def display_hangman(tries):
+    stages = [  # финальное состояние: голова, торс, обе руки, обе ноги
+                '''
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     / \\
+                   -
+                ''',
+                # голова, торс, обе руки, одна нога
+                '''
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     / 
+                   -
+                ''',
+                # голова, торс, обе руки
+                '''
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |      
+                   -
+                ''',
+                # голова, торс и одна рука
+                '''
+                   --------
+                   |      |
+                   |      O
+                   |     \\|
+                   |      |
+                   |     
+                   -
+                ''',
+                # голова и торс
+                '''
+                   --------
+                   |      |
+                   |      O
+                   |      |
+                   |      |
+                   |     
+                   -
+                ''',
+                # голова
+                '''
+                   --------
+                   |      |
+                   |      O
+                   |    
+                   |      
+                   |     
+                   -
+                ''',
+                # начальное состояние
+                '''
+                   --------
+                   |      |
+                   |      
+                   |    
+                   |      
+                   |     
+                   -
+                '''
+    ]
+    return stages[tries]
+
+def is_valied(lett):
+    flag = True
+    while flag:
+        if lett not in 'ЙЦУКЕНГШЩЗХЪЭЖДЛОРПАВЫФЯЧСМИТЬБЮ' or not lett.isalpha():
+            lett = input('Нужно ввести букву русского алфавита! ').upper()
+        else:
+            flag = False
+
+def play(word):
+    word_completion = '_' * len(word)  # строка, содержащая символы _ на каждую букву задуманного слова
+    guessed = False                    # сигнальная метка
+    guessed_letters = []               # список уже названных букв
+    guessed_words = []                 # список уже названных слов
+    tries = 6                          # количество попыток
+
+    print('Давайте играть в угадайку слов!')
+    print(word)
+    print(word_completion, end='\n')
+    while tries != 0:
+        print(display_hangman(tries))
+        
+        letter = input('Введите букву или слово целиком: ').upper()
+        print(letter)
+        is_valied(letter)
+
+        while letter in guessed_letters:
+            letter = input('Эту букву уже называли, введите другую букву! ').upper()
+        guessed_letters.append(letter)
+
+
+        if letter == word or word == word_completion:
+            print('Поздравляем, вы угадали слово! Вы победили!')
+            print(word)
+            guessed_words.append(word)
+            break
+        elif letter in word:
+            for i in range(len(word)):
+                if word[i] == letter:
+                    word_completion = word_completion[:i] + letter + word_completion[i+1:]
+            print(word_completion)
+            continue
+        else:
+            tries -= 1
+            guessed_letters.append(letter)
+            print('Такой буквы нет((')
+            continue
+    print(display_hangman(tries))
+    print('Вам конеЦ!')
+
+word = get_word(words_list).upper()
+play(word)
