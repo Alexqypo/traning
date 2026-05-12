@@ -1,0 +1,44 @@
+number = input('Введите число которое нужно перевести ')
+sys_calcul_1 = int(input('Введите систему исчисления числа '))
+sys_calcul_2 = int(input('Введите систему исчисления в которую нужно перевести '))
+
+nums = []
+for c in number:
+    nums.insert(0, c)
+
+def transfer(num, sys_1, sys_2):
+    if sys_1 <= 10:
+        num_sys_2 = 0
+        for i in range(len(num)):
+            num_sys_2 += int(num[i]) * sys_1 ** i
+                       
+        print(num_sys_2)
+    elif sys_1 > 10:
+        num_sys_2 = 0
+        for i in range(len(num)):               #переделываем буквы 16-ричной системы исчисления 
+            if num[i].isalpha():
+                num[i] = ord(num[i]) - 55
+        
+        for i in range(len(num)):
+            num_sys_2 += int(num[i]) * sys_1 ** i
+
+        print(num_sys_2)
+
+
+def transfer_2(num, sys_2):
+    nums = int(num)
+    num_sys_1 = []
+    while nums >= sys_2:
+        k = nums % sys_2
+        if k > 9:
+            num_sys_1.insert(0, chr(55 + k))
+        else:
+            num_sys_1.insert(0, k)
+        nums //= sys_2
+    num_sys_1.insert(0, nums)
+    print(*num_sys_1, sep='')
+
+if sys_calcul_1 != 10:
+    transfer(nums, sys_calcul_1, sys_calcul_2)
+elif sys_calcul_1 == 10:
+    transfer_2(number, sys_calcul_2)
