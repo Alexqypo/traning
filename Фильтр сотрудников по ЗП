@@ -1,0 +1,22 @@
+employees = [
+    {"name": "Иван", "salary": 95000},
+    {"name": "Анна", "salary": 120000},
+    {"name": "Петр", "salary": 87000},
+    {"name": "Мария", "salary": 150000},
+]
+
+def filter_salary(data, minimum_salary):
+    """
+    Она должна вернуть список сотрудников, чья зарплата не меньше указанного значения.
+    data (list): список словарей, информация о сотруднике
+    minimum_salary (int): минимальная зарплата
+    Резульнат:
+    Печатает список сотрудников с зарплатой больше указаной
+    """
+    result = []
+    for info in data:
+        if info['salary'] >= minimum_salary:
+            result.append(info)
+    print(result)
+
+filter_salary(employees, 100000)
