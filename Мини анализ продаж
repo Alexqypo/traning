@@ -1,0 +1,47 @@
+sales = [150, 220, 310, 180, 90, 420, 300]
+
+def get_total_sales(numbers):
+    """
+    Возвращает общую сумму.
+    """
+    return sum(numbers)
+
+def get_average_sales(numbers):
+    """
+    Возвращает среднее значение.
+    """
+    return sum(numbers) / len(numbers)
+
+def get_max_sale(numbers):
+    """
+    Возвращает максимальную продажу.
+    """
+    return max(numbers)
+
+def get_min_sale(numbers):
+    """
+    Возвращает минимальную продажу.
+    """
+    return min(numbers)
+
+def count_big_sales(numbers, quantity=200):
+    """
+    Возвращает количество продаж больше указаного значения.
+    """
+    return len(list(filter(lambda x: x > quantity, numbers)))
+
+def main(sales, day):
+    """
+    Она должна вызвать все остальные функции и вывести красиво оформленный отчёт, например:
+    """
+    print(f'''========== Отчет ==========
+Количество дней: {len(sales)}
+Общая сумма продаж: {get_total_sales(sales)}
+Средняя продажа: {get_average_sales(sales)}
+Максимальная продажа: {get_max_sale(sales)}
+Минимальная продажа: {get_min_sale(sales)}
+Продаж > 200: {count_big_sales(sales, day)}
+===========================
+''')
+
+main(sales, 200)
